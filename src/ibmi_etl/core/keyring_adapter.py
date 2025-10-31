@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from datetime import date, timedelta
-from typing import Protocol
+from typing import Callable, Protocol
 
 _EXPIRY_SLUG_PATTERN = re.compile(
     r"(?:^|;)\s*exp=(\d{4}-\d{2}-\d{2})\s*(?:;|$)", re.IGNORECASE
@@ -85,3 +85,36 @@ class KeyringAdapter(Protocol):
 
     def delete(self, service_name: str) -> None:
         """Remove credentials for *service_name* from the secret store."""
+
+
+class InMemoryKeyringAdapter:
+    """Simple keyring adapter storing credentials in process memory.
+
+    The adapter is primarily intended for unit tests and local development
+    scaffolding where integrating with the system keyring is unnecessary. It
+    enforces the expiry semantics encoded in :class:`CredentialRecord` by
+    automatically evicting stale credentials on access so production code can
+    rely on :meth:`~CredentialRecord.requires_rotation` being respected even in
+    mocks.
+    """
+
+    def __init__(self, *, today: Callable[[], date] = date.today) -> None:
+        self._today = today
+        self._records: dict[str, CredentialRecord] = {}
+
+    def get(self, service_name: str) -> CredentialRecord | None:
+        record = self._records.get(service_name)
+        if record is None:
+            return None
+
+        if record.requires_rotation(on_date=self._today()):
+            self.delete(service_name)
+            return None
+
+        return record
+
+    def set(self, record: CredentialRecord) -> None:
+        self._records[record.service_name] = record
+
+    def delete(self, service_name: str) -> None:
+        self._records.pop(service_name, None)
