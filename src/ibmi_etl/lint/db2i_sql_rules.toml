@@ -1,0 +1,10 @@
+# Placeholder rule definitions for Db2 for i SQL linting.
+# Concrete rules will be populated as the parser implementation matures.
+
+[[rule]]
+identifier = "IDENTIFIER_CASE"
+description = "Identifiers should use uppercase snake case to match Db2 for i conventions."
+
+[[rule]]
+identifier = "UNSUPPORTED_EXPRESSION"
+description = "Expressions must avoid Db2 for i incompatible syntax until explicitly vetted."
