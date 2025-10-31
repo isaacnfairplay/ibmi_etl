@@ -229,6 +229,16 @@ What part of the pipeline and why this change is needed (performance, safety, co
 
 When in doubt: **tighten interfaces, add a test, write why.** The i-Series world is quirky—but with careful configs, linting, and expiry-aware ops, this toolkit can be both safe for open-source and powerful in production.
 
+---
+
+### Recurring roadmap maintenance
+
+At the beginning of **every run**, review `docs/PROJECT_STATUS.md`:
+
+1. Re-assess whether the roadmap or current-phase details need updates based on new work, bugs uncovered, or fresh user input.
+2. Append a dated entry to the "Run Log" section capturing notable findings (e.g., defects discovered, stakeholder directives, or decisions).
+3. Keep the log chronological and concise so future contributors can quickly trace project context.
+
 [1]: https://www.cloudflare.com/learning/ai/owasp-top-10-risks-for-llms/?utm_source=chatgpt.com "What are the OWASP Top 10 risks for LLMs?"
 [2]: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api?utm_source=chatgpt.com "Best practices for prompt engineering with the OpenAI API"
 [3]: https://www.ibm.com/docs/en/SSAE4W_9.6.0/db2/rbafzpdf.pdf?utm_source=chatgpt.com "DB2 for i SQL Reference - IBM i"
