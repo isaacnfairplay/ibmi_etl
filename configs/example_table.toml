@@ -1,0 +1,22 @@
+# Example configuration illustrating table-specific extraction settings.
+[table]
+name = "EXAMPLE_TABLE"
+identity_column = "SERL95"
+reprocess_tail = true
+
+[filters]
+company_filter = "CONO35 = 100"
+additional_filters = [
+  "STAT01 <> 'D'",
+]
+
+[censor]
+censored_columns = ["SSN01", "CARD_NUMBER"]
+
+[[censor.cast_expressions]]
+alias = "ORDER_DATE"
+expression = "DATE(DIGITS(ODAT01))"
+
+[[validation.rules]]
+name = "order_date_not_null"
+expression = "ORDER_DATE IS NOT NULL"
