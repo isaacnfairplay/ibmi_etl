@@ -37,4 +37,5 @@
 ## Run Log
 - 2025-10-31 — Initialized project status assessment, established roadmap structure, and created logging section per user guidance.
 - 2025-10-31 — Documented progress on expiry-aware credential helpers to continue Phase 0 keyring groundwork.
+- 2025-10-31 — Added an in-memory keyring adapter concept to exercise expiry gating behavior during local development.
 - 2025-11-01 — Established Python package scaffolding, baseline interfaces, and contributor guidance to kick off Phase 0.
